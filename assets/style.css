@@ -1,5 +1,9 @@
 * {
 	font-family: 'Varela Round', sans-serif;
-	background: #007FFF;
+	/* background: #007FFF; */
 	color: white; 
+}
+
+.align-right {
+    text-align: right;
 }
