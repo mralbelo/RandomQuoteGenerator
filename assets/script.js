@@ -51,16 +51,32 @@ function createTags(arr) {
 }
 
 var last = -1;
+var quoteHistory = [];
+var q = quoteHistory.length;
 
-function randomQuotePicker() {
-    let random = randomNum();
+getRandom = () => { return Math.floor(Math.random() * quotes.length) };
+
+function previousQuote() {
+    q -= 1;
+    let history = quoteHistory[q];
+    let quote = quotes[history];
+    setQuote(quote);
+}
+
+function newQuote() {
+    let random = getRandom();
     while (random === last) {
-        random = randomNum();
+        random = getRandom();
     }
     last = random;
-    
-    let quote = quotes[random];
+    quoteHistory.push(random);
+    q = quoteHistory.length
 
+    let quote = quotes[random];
+    setQuote(quote);
+}
+
+function setQuote(quote) {
     let body = document.querySelector('body');
     body.className = quote.class;
 
@@ -79,9 +95,4 @@ function randomQuotePicker() {
     document.getElementById('tags').innerHTML = createTags(quote.tags);
 }
 
-function randomNum() {
-    const quoteQty = quotes.length;
-    return Math.floor(Math.random() * quoteQty)
-}
-
-randomQuotePicker();
+newQuote();
