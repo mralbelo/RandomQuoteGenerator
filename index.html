@@ -1,36 +1,34 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Random Quote Generator</title>
-  <link rel="stylesheet" href="assets/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-</head>
-<body>
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quotes</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+
+  <body>
+    <header>
+      <h1>Random Quotes</h1>
+      <div>
+        <button onclick="printPreviousQuote()" id="btnPrevious" class="load-quote">Previous quote</button>
+        <button onclick="printQuote()" id="btnGenerate" class="load-quote">New quote</button>
+      </div>
     </header>
 
-    <div class="mb-5">
-      <h3 id="category" class="float-md-left mb-0"></h3>
+    <div class="container">
+      <div id="quote-box" class="quote-box">
+        <p id="quote" class="quote"></p>
+        <p id="source" class="source"></p>
+        <p id="tags"></p>
+      </div>
     </div>
-  
-    <main class="px-3">
-      <h1 id="quote"></h1>
-      <h3 id="description"></h3>
-      <div id="tags"></div>
-    </main>
-
-    <header class="mt-auto text-center">
-      
-      <button class="btn btn-quote" onclick="previousQuote()">Previous Quote</button>
-      <button class="btn btn-quote" onclick="newQuote()">New Quote</button>
-    </header>
-  </div>
-  <script src="assets/script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-</body>
+    <div class="toggle-container">
+      <input onclick="onAutoGenerateToggle()" type="checkbox" name="autoGenerateToggle" class="sw" id="autoGenerateToggle" checked>
+      <label for="autoGenerateToggle"><span>Auto-generate Quotes</span></label>
+    </div>
+    
+    <script src="js/script.js"></script>
+  </body>
 </html>

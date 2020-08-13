@@ -1,0 +1,312 @@
+/** 
+ * Treehouse FSJS Techdegree
+ * Random Quote Generator - CSS
+ */
+
+ @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i&display=swap');
+
+body {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  padding: 5px;
+  height: Calc(100vh - 10px);
+}
+
+header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 95%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 5px;
+}
+
+h1 {
+  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.3);
+}
+
+.load-quote {
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.3);
+  width: 12em;
+  max-height: 75px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+}
+
+.load-quote:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.load-quote:focus {
+  outline: none;
+}
+
+.container {
+  width: 90%;
+  max-width: 1024px;
+  margin: auto;
+  padding: 5px;
+}
+
+.quote-box {
+  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.3);
+  line-height: 0.5;
+}
+
+.quote {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  position: relative;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.quote:before,
+.quote:after {
+  font-size: 3rem;
+  line-height: 2.5rem;
+  position: absolute;
+}
+
+.quote:before {
+  content: "“";
+  top: 0.1em;
+  left: -0.5em;
+}
+
+.quote:after {
+  content: "”";
+  bottom: -0.1em;
+  margin-left: 0.1em;
+  position: absolute;
+}
+
+.source {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  text-align: right;
+  margin-right: 4em;
+}
+
+.source:before {
+  content: "—";
+}
+
+.citation {
+  font-style: italic;
+}
+
+.citation:before {
+  content: ", ";
+  font-style: normal;
+}
+
+.year:before {
+  content: ", ";
+  font-style: normal;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: 25px;
+    height: Calc(100vh - 50px);
+  }
+
+  header {
+    margin-bottom: 50px;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    height: 73px;
+    margin-top: 20px;
+    margin-right: 5px;
+    border-bottom: 4px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .load-quote {
+    font-size: 1.5rem;
+  }
+
+  .container {
+    padding: 25px 25px 15px 55px;
+    background: rgba(0, 0, 0, 0.1);
+    border-left: 5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .quote {
+    font-size: 4rem;
+  }
+
+  .quote:before,
+  .quote:after {
+    font-size: 6rem;
+  }
+
+  .quote:before {
+    top: 0.25em;
+  }
+
+  .quote:after {
+    bottom: 0.1em;
+  }
+
+  .source {
+    font-size: 1.25rem;
+  }
+}
+
+/* Custom Added Styles */
+
+.blue-gradient {
+	background-image: radial-gradient( circle farthest-corner at 22.4% 21.7%,  rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% );
+}
+.green-gradient {
+	background-image: linear-gradient( 110.1deg,  rgba(34,126,34,1) 2.9%, rgba(168,251,60,1) 90.3% );
+}
+
+.purple-gradient {
+	background-image: linear-gradient( 135.9deg,  rgba(109,25,252,1) 16.4%, rgba(125,31,165,1) 56.1% );
+}
+
+.dark-gradient {
+	background-image: linear-gradient( 112.1deg,  rgba(32,38,57,1) 11.4%, rgba(63,76,119,1) 70.2% );
+}
+.pink-gradient {
+	background-image: linear-gradient( 358.3deg,  rgba(255,82,168,1) 12.9%, rgba(177,118,240,1) 134.3% );
+}
+.star-wars {
+	background-image: url('https://starwarsblog.starwars.com/wp-content/uploads/2020/04/star-wars-backgrounds-25.jpg');
+}
+
+header.progress-bar:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 10px;
+  background: white;
+  animation-name: progressBar;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+@keyframes progressBar {
+  from {width: 0;}
+  to {width: 100vw;}
+}
+#tags {
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  text-align: right;
+  margin-right: 4em;
+}
+.tag {
+	background: #ffffff40;
+	padding: 10px !important;
+  font-size: 13px !important;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0,0,0.3,1);
+}
+.tag:hover {background:#ffffff57}
+.tag:not(:last-child){
+	margin-right: 5px;
+}
+
+.toggle-container {
+  width: 95%;
+  max-width: 1100px;
+  margin: 25px auto auto auto;
+  padding: 5px;
+}
+
+button[disabled] {
+  opacity: .5;
+  border: none !important;
+  background: none !important;
+  cursor: not-allowed !important;
+}
+
+.load-quote {
+  width: 9em !important;
+}
+
+/* toogle style from https://codepen.io/kowlor/pen/ByavWB */
+input.sw {
+  opacity: 0;
+  position: absolute;
+  left: -9999px;
+}
+input.sw + label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+  display: inline-block;
+  height: 30px;
+  width: 51px;
+  position: relative;
+  box-shadow: inset 0 0 0px 2px #e4e4e4;
+  border-radius: 60px;
+  /* White toggle */
+}
+input.sw + label:before {
+  content: "";
+  position: absolute;
+  display: block;
+  height: 30px;
+  width: 30px;
+  top: 0;
+  left: 0;
+  border-radius: 15px;
+  background: rgba(76, 217, 100, 0);
+  -webkit-transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+  transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+}
+input.sw + label:after {
+  content: "";
+  position: absolute;
+  display: block;
+  height: 28px;
+  width: 28px;
+  top: 50%;
+  margin-top: -14px;
+  left: 1px;
+  border-radius: 60px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0px 0 rgba(0, 0, 0, 0.04), 0 4px 9px rgba(0, 0, 0, 0.13), 0 3px 3px rgba(0, 0, 0, 0.05);
+  -webkit-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+}
+input.sw + label span {
+  white-space: nowrap;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 51px;
+  padding-left: 16px;
+}
+input.sw:checked + label:before {
+  width: 51px;
+  background: #4cd964;
+  -webkit-transition: width 0.2s cubic-bezier(0, 0, 0, 0.1) !important;
+  transition: width 0.2s cubic-bezier(0, 0, 0, 0.1) !important;
+}
+input.sw:checked + label:after {
+  left: 22px;
+}
+input.sw:checked + label {
+  box-shadow: inset 0 0 0px 25px #e4e4e4;
+  -webkit-transition: box-shadow 2.5s cubic-bezier(0, 1.2, 0.94, 0.95);
+  transition: box-shadow 2.5s cubic-bezier(0, 1.2, 0.94, 0.95);
+}
