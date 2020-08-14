@@ -12,23 +12,25 @@
     <header>
       <h1>Random Quotes</h1>
       <div>
+        <!-- previous button allow the user to see the quotes they have generated -->
         <button onclick="printPreviousQuote()" id="btnPrevious" class="load-quote">Previous quote</button>
+        <!-- Fetches a new random quote -->
         <button onclick="printQuote()" id="btnGenerate" class="load-quote">New quote</button>
       </div>
     </header>
 
     <div class="container">
+      <!-- The script will print the quote content into the quote-box -->
       <div id="quote-box" class="quote-box">
-        <p id="quote" class="quote"></p>
-        <p id="source" class="source"></p>
-        <p id="tags"></p>
       </div>
     </div>
+    <!-- Auto-Generate Quotes Toggle allows the script to fetch a new quote every 5 seconds. Previous/New Quote Buttons will be disabled while the toggle is checks -->
     <div class="toggle-container">
       <input onclick="onAutoGenerateToggle()" type="checkbox" name="autoGenerateToggle" class="sw" id="autoGenerateToggle" checked>
       <label for="autoGenerateToggle"><span>Auto-generate Quotes</span></label>
     </div>
     
+    <script src="js/quotes.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>

@@ -1,57 +1,3 @@
-const quotes = [
-    {
-        quote: 'I build neat stuff, got a great girl, occasionally save the world. So why can’t I sleep?',
-        author: 'Tony Stark',
-        citation: 'Iron Man',
-        class: 'blue-gradient',
-        category: 'Movies Quote',
-        tags: ['Iron Man', 'Tony Stark']
-    },
-    {
-        quote: 'Tatata bala tu',
-        author: 'Bob the Minion',
-        citation: 'Despicable Me',
-        year: '2015',
-        class: 'green-gradient',
-        category: 'Funny Quote',
-        tags: ['Minion', 'Despicable Me']
-    },
-    {
-        quote: `I'm Not Crazy. My Mother Had Me Tested.`,
-        author: 'Sheldon',
-        citation: 'Big Bang Theory',
-        class: 'purple-gradient',
-        category: 'Tv Show Quote'
-    },
-    {
-        quote: `Chewie, we're home.`,
-        author: 'Han Solo',
-        citation: 'Star Wars',
-        year: '2015',
-        class: 'star-wars',
-        category: 'Movies Quote',
-        tags: ['Star Wars', 'Episode VII: The Force Awakens']
-    },
-    {
-        quote: 'Magic Mirror on the wall, who is the fairest one of all?',
-        author: 'The Queen',
-        citation: 'Snow White and the Seven Dwarves',
-        year: '1937',
-        class: 'pink-gradient',
-        category: 'Movies Quote',
-        tags: ['Snow White', 'The Queen']
-    },
-    {
-        quote: 'May the Force be with you.',
-        author: 'Han Solo',
-        citation: 'Star Wars',
-        year: '1997',
-        class: 'star-wars',
-        category: 'Movies Quote',
-        tags: ['Star Wars', 'The Force']
-    }
-];
-
 var last = 0;
 var quoteHistory = [];
 let interval;
@@ -75,6 +21,7 @@ function printQuote() {
     let newQuote = getRandomQuote();
     displayQuote(newQuote);
 
+    // Validation for back button
     if (quoteHistory.length > 1) {
         if (btnPrevious.hasAttribute("disabled") && !toggleAutoGenerate.checked) {
             btnPrevious.removeAttribute("disabled");
@@ -91,6 +38,7 @@ function printPreviousQuote() {
         let lastQuote = getPreviousQuote();
         displayQuote(lastQuote);
     } else {
+        // This validates if previous button should be enabled
         btnPrevious.setAttribute("disabled", "true");
     }
 
@@ -98,20 +46,26 @@ function printPreviousQuote() {
 
 // This function handles the on auto-generate toggle event
 function onAutoGenerateToggle() {
+
+    // If toggle is checked it enable the geRandomQuoteInverval, adds progress bar and disables buttons.
     if (toggleAutoGenerate.checked) {
         addProgressBar.classList.add('progress-bar');
         interval = getRandomQuoteInterval();
         btnPrevious.setAttribute("disabled", "true");
         btnGenerate.setAttribute("disabled", "true");
     } else {
+        // If toggle is unchecked it removes progress bar, clears interval and re-enable's the buttons
         removeProgressBar.classList.remove('progress-bar');
         clearInterval(interval);
         interval = null;
+
+        // Extra validation for if the user tries to click previous quote button and there's not previous
         if (quoteHistory.length > 0) {
             btnPrevious.removeAttribute("disabled");
         }
         btnGenerate.removeAttribute("disabled");
     }
+
 }
 
 // This function returns the interval object for auto-generate quote
@@ -125,6 +79,7 @@ function getRandomQuoteInterval() {
 // This function returns a random quote object
 function getRandomQuote() {
     let random = getRandom();
+    // This Validates the current quote with the last quote to prevent showing duplicates in a row
     while (random === last) {
         random = getRandom();
     }
@@ -143,6 +98,7 @@ function getPreviousQuote() {
     let lastIndex = quoteHistory.pop();
     let lastQuote = quotes[lastIndex];
 
+    // Validation for back button
     if (quoteHistory.length < 1) {
         btnPrevious.setAttribute("disabled", "true");
     }
@@ -154,27 +110,35 @@ function getPreviousQuote() {
 // This function accepts quote object as a param to render the quote data in html
 function displayQuote(quote) {
     if (quote) {
+
+        // Add's progress bar if Auto-Generate Quote is enabled
         if (toggleAutoGenerate.checked) {
             addProgressBar.classList.add('progress-bar');
         }
 
+        // adds class to body to change background color
         document.querySelector('body').className = quote.class;
 
-        let source = '';
+        let html = '';
 
-        if (quote.author) {
-            source += quote.author;
-        }
-        if (quote.citation) {
-            source += `<span class="citation">${quote.citation}</span>`;
-        }
-        if (quote.year) {
-            source += `<span class="year">${quote.year}</span>`;
+        html += `
+        <p class="quote">${quote.quote}</p>
+        <p class="source">${quote.source}
+        <span class="citation">${quote.citation}</span></p>`;
+
+        // Checks if quote has year, removes p.source closing tag, adds year and adds the p.source closing tag back again.
+        if (quote.year) { 
+            html = html.slice(0, html.length - 4);
+            html += `<span class="year">${quote.year}</span></p>`;
+        } 
+
+        // Cheks if quote has tags, passes tags array into createTags function
+        if (quote.tags) {
+            html += `<p id="tags">${createTags(quote.tags)}</p>`;
         }
 
-        document.getElementById('quote').innerHTML = quote.quote;
-        document.getElementById('source').innerHTML = source;
-        document.getElementById('tags').innerHTML = createTags(quote.tags);
+        // Display's final html content in Quote Box
+        document.getElementById('quote-box').innerHTML = html;
     }
 
 }
