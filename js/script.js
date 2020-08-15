@@ -1,18 +1,14 @@
-var last = 0;
 var quoteHistory = [];
 let interval;
-const intervalTime = 5000;
+const intervalTime = 8000;
 const btnPrevious = document.getElementById('btnPrevious');
 const btnGenerate = document.getElementById('btnGenerate');
-const removeProgressBar = document.querySelector('header');
-const addProgressBar = document.querySelector('header');
+const header = document.querySelector('header');
 const toggleAutoGenerate = document.getElementById('autoGenerateToggle');
-
-// This function returns a random number from 0 to the total quotes record
-getRandom = () => { return Math.floor(Math.random() * quotes.length) };
 
 // sets inital quote
 printQuote();
+
 // after interval timer value generates new quote
 onAutoGenerateToggle();
 
@@ -49,13 +45,13 @@ function onAutoGenerateToggle() {
 
     // If toggle is checked it enable the geRandomQuoteInverval, adds progress bar and disables buttons.
     if (toggleAutoGenerate.checked) {
-        addProgressBar.classList.add('progress-bar');
+        header.classList.add('progress-bar');
         interval = getRandomQuoteInterval();
         btnPrevious.setAttribute("disabled", "true");
         btnGenerate.setAttribute("disabled", "true");
     } else {
         // If toggle is unchecked it removes progress bar, clears interval and re-enable's the buttons
-        removeProgressBar.classList.remove('progress-bar');
+        header.classList.remove('progress-bar');
         clearInterval(interval);
         interval = null;
 
@@ -71,38 +67,49 @@ function onAutoGenerateToggle() {
 // This function returns the interval object for auto-generate quote
 function getRandomQuoteInterval() {
     return setInterval(function () {
-        removeProgressBar.classList.remove('progress-bar');
+        header.classList.remove('progress-bar');
         printQuote();
     }, intervalTime);
 }
 
 // This function returns a random quote object
 function getRandomQuote() {
-    let random = getRandom();
-    // This Validates the current quote with the last quote to prevent showing duplicates in a row
-    while (random === last) {
-        random = getRandom();
-    }
-    last = random;
-    quoteHistory.push(random);
+    let index = getRandomIndex();
+    let rgbValue = getRandomRGB();
+    
+    let lastQuote = 0;
 
-    let quote = quotes[random];
+    if (quoteHistory.length > 0) {
+        lastQuote = quoteHistory[quoteHistory.length - 1];
+    }
+
+    // This Validates the current quote with the last quote to prevent showing duplicates in a row
+    while (index === lastQuote.index) {
+        index = getRandomIndex();
+    }
+
+    quoteHistory.push({index: index, rgbValue: rgbValue});
+
+    var currentQuote = quotes[index];
+    currentQuote.rgbValue = rgbValue;
+
+    let quote = currentQuote;
 
     return quote;
 }
 
 // This function returns the last quote object, removing the last index stored in quoteHistory array
 function getPreviousQuote() {
-
     quoteHistory.pop();
     let lastIndex = quoteHistory.pop();
-    let lastQuote = quotes[lastIndex];
+    let lastQuote = quotes[lastIndex.index];
+    lastQuote.rgbValue = lastIndex.rgbValue;
 
     // Validation for back button
     if (quoteHistory.length < 1) {
         btnPrevious.setAttribute("disabled", "true");
     }
-    quoteHistory.push(lastQuote);
+    quoteHistory.push({index: lastIndex.index, rgbValue: lastIndex.rgbValue});
 
     return lastQuote;
 }
@@ -110,14 +117,13 @@ function getPreviousQuote() {
 // This function accepts quote object as a param to render the quote data in html
 function displayQuote(quote) {
     if (quote) {
-
         // Add's progress bar if Auto-Generate Quote is enabled
         if (toggleAutoGenerate.checked) {
-            addProgressBar.classList.add('progress-bar');
+            header.classList.add('progress-bar');
         }
 
         // adds class to body to change background color
-        document.querySelector('body').className = quote.class;
+        document.querySelector('body').setAttribute('style', `background-color: rgb(${quote.rgbValue});`);
 
         let html = '';
 
@@ -152,4 +158,19 @@ function createTags(tags) {
         }
     }
     return tagsHtml;
+}
+
+// This function returns a random number from 0 to the total quotes record
+function getRandomIndex() {
+    randomIndex = Math.floor(Math.random() * quotes.length);
+    return randomIndex;
+}
+
+// This function returns a random RGB value
+function getRandomRGB() {
+    red = Math.floor(Math.random() * 255);
+    green = Math.floor(Math.random() * 255);
+    blue = Math.floor(Math.random() * 255);
+
+    return `${red}, ${green}, ${blue}`;
 }
