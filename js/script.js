@@ -42,7 +42,6 @@ function printPreviousQuote() {
 
 // This function handles the on auto-generate toggle event
 function onAutoGenerateToggle() {
-
     // If toggle is checked it enable the geRandomQuoteInverval, adds progress bar and disables buttons.
     if (toggleAutoGenerate.checked) {
         header.classList.add('progress-bar');
@@ -56,7 +55,7 @@ function onAutoGenerateToggle() {
         interval = null;
 
         // Extra validation for if the user tries to click previous quote button and there's not previous
-        if (quoteHistory.length > 0) {
+        if (quoteHistory.length > 1) {
             btnPrevious.removeAttribute("disabled");
         }
         btnGenerate.removeAttribute("disabled");
